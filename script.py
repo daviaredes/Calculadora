@@ -1,6 +1,6 @@
 # Fazer basicamento todos os mecanismos de um calculador e depois quando tudo estiver rodando liso fazer um GUI usando o pysimplegui 
+# falar oque cada mecanismos faz usando # obrigatorio 
 # exemplo
-
 # pede o primeiro numro:
 # pede qual operador sera ultilizado 
 # pede outro valor:
@@ -10,36 +10,36 @@
 # Bibliotecas ultilizadas
 import math as mt
 
+
 cont_sair = 0
+
 while True:
-    Num1 = int(input('Primeiro numero: '))
-    opera = str(input('Escolha um\n * Multiplicaçao\n + Adiçao\n - Subtraçao\n / Divisao\n // Raiz Quadrada\n Qual sera a sua escolha: ').lower)
-    Num2 = int(input('Segundo numero: '))
+    num1 = float(input('Primeiro Numero: '))
+    print('* Multiplicaçao\n + Adiçao \n - Subtraçao\n / Divisao\n // Raiz Quadrada')
+    opera = str(input('Escolha um: '))
     cont_sair += 1
-    
+    if opera == '//':
+        raiz_quadradad = int(input('Qual raiz deseja saber: '))
+        raiz = mt.sqrt(raiz_quadradad)
+        print(f'A Raiz Quadrada de {raiz_quadradad} e {raiz}')
+        cont_sair += 1
+        continue
+    else:
+        num2 = float(input('Segundo Numero: '))
     if cont_sair == 3:
-        sair = str(input('Deseja sair: ').lower)
-        if sair == 'sim':
-            print('Tchau   ')
-            break    
-    elif opera == '*' or 'multiplicaçao':
-        mult = (Num1 * Num2)
-        print(f'Multiplicando {Num1} e o {Num2} e igual {mult}')
+        saida = str(input('Deseja sair: '))
+        if saida == 'sim' or 's':
+            print('Ate mais tchau')
+            break
+    else:
+        cont_sair = 0 
         continue
-    elif opera == '+' or 'adiçao':
-        adic = (Num1 + Num2)
-        print(f' Multiplicando {Num1} com {Num2} e igual {adic}')
-        continue
-    elif opera == '-' or 'subtraçao':
-        subtr = (Num1 - Num2)
-        print(f'Subtraindo {Num1} com {Num2} e igual {subtr}')
-        continue
-    elif opera == '/' or 'divisao':
-        divis = (Num1 / Num2)
-        print(f'Dividindo {Num1} com {Num2} e igual {divis}')
-        continue
-    elif opera == '//' or 'raiz quadrada':
-        opeçao_raiz = int(input('Qual Raiz voce quer saber: '))
-        raiz =  mt.sqrt(opeçao_raiz)
-        print(f'A Raiz Quadrada de {opeçao_raiz}  e igual {raiz}')
-        continue
+    break
+
+if opera == '*':
+    mult = (num1 * num2)
+    print(f' A multiplicaçao dara: {num1} * {num2} == {mult}')
+elif opera == '+' or 'adiçao':
+    adic = (num1 + num2)
+    print(f'A soma dara {num1} + {num2} == {adic}')
+
