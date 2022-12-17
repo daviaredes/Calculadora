@@ -4,7 +4,8 @@ theme('DarkGrey14')
 
 layout = [
     [
-        Text('', key='tela')
+        [Text('', key='tela')],
+        [Txt('' * 10)]
     ],
     [
         ReadFormButton('C'),
@@ -31,26 +32,32 @@ layout = [
     [
         ReadFormButton('/'),
         ReadFormButton('0'),
-        ReadFormButton(','),
+        ReadFormButton('.'),
         ReadFormButton('=')
     ]
 ]
 
-Wind = FlexForm('Calculadora', default_button_element_size=(5, 2))
-Wind.Layout(layout) 
+Wind = FlexForm('Calculadora', default_button_element_size=(5, 2), auto_size_buttons=False, layout=layout)
 
-Result = ''
+Resultado = ''
 
 while True:
 
     button, values = Wind.Read()
 
     if button == 'C':
-        Result = ''
-        Wind.find_element('tela').update(Result)
+        Resultado = ''
+        Wind.find_element('tela').update(Resultado)
     elif button == '<<':
-        Result = Result[:-1]
-        Wind.find_element('tela').update(Result)
-        
+        Resultado = Resultado[:-1]
+        Wind.find_element('tela').update(Resultado)    
+    elif button == '=':
+        calculo = eval(Resultado)
+        calculo = str(round(float(calculo)))
+        Wind.find_element('tela').Update(calculo)
+        Resultado = calculo
     if button == 'Quit' or button == None:
         break
+    else:
+        Resultado += button
+        Wind.find_element('tela').Update(Resultado)
