@@ -2,9 +2,13 @@ from PySimpleGUI import *
 
 theme('DarkGrey14')
 
+menu_def = [['Menu', 'Historical']]
+
 layout = [
     [
-        [Text('', key='tela')],
+        [Menu(menu_def)],
+        [Txt('' * 10)],
+        [Text('', key='screen', font='Helvetica, 18', size=(15, 2))],
         [Txt('' * 10)]
     ],
     [
@@ -37,27 +41,33 @@ layout = [
     ]
 ]
 
-Wind = FlexForm('Calculadora', default_button_element_size=(5, 2), auto_size_buttons=False, layout=layout)
+Wind = FlexForm('Calculator', default_button_element_size=(5, 2), auto_size_buttons=False, layout=layout)
 
-Resultado = ''
+calculation_history = []
+result = ''
 
 while True:
 
     button, values = Wind.Read()
 
     if button == 'C':
-        Resultado = ''
-        Wind.find_element('tela').update(Resultado)
+        result = ''
+        Wind.find_element('screen').Update(result)
+    
     elif button == '<<':
-        Resultado = Resultado[:-1]
-        Wind.find_element('tela').update(Resultado)    
+        result = result[:-1]
+        Wind.find_element('screen').Update(result) 
+   
     elif button == '=':
-        calculo = eval(Resultado)
-        calculo = str(round(float(calculo)))
-        Wind.find_element('tela').Update(calculo)
-        Resultado = calculo
-    if button == 'Quit' or button == None:
+        calculation_history.append(result)
+        calculation_system = eval(result)
+        calculation_system = str(int(float(calculation_system)))
+        calculation_history.append(calculation_system)
+        Wind.find_element('screen').Update(calculation_system)
+        result = calculation_system
+
+    if button == None:
         break
     else:
-        Resultado += button
-        Wind.find_element('tela').Update(Resultado)
+        result += button
+        Wind.find_element('screen').Update(result)
