@@ -8,8 +8,7 @@ layout = [
     [
         [Menu(menu_def)],
         [Txt('' * 10)],
-        [Text('', key='screen', font='Helvetica, 18', size=(15, 2))],
-        [Txt('' * 10)]
+        [Text('0', key='screen', font='Helvetica, 20', size=(15, 2))],
     ],
     [
         ReadFormButton('C'),
@@ -39,9 +38,8 @@ layout = [
         ReadFormButton('.'),
         ReadFormButton('=')
     ]
-]
-
-Wind = FlexForm('Calculator', default_button_element_size=(5, 2), auto_size_buttons=False, layout=layout)
+],
+Wind = FlexForm('Calculator', default_button_element_size=(9, 2), auto_size_buttons=False, layout=layout)
 
 calculation_history = []
 result = ''
@@ -50,24 +48,27 @@ while True:
 
     button, values = Wind.Read()
 
-    if button == 'C':
-        result = ''
-        Wind.find_element('screen').Update(result)
-    
-    elif button == '<<':
-        result = result[:-1]
-        Wind.find_element('screen').Update(result) 
-   
-    elif button == '=':
-        calculation_history.append(result)
-        calculation_system = eval(result)
-        calculation_system = str(int(float(calculation_system)))
-        calculation_history.append(calculation_system)
-        Wind.find_element('screen').Update(calculation_system)
-        result = calculation_system
-
     if button == None:
         break
     else:
         result += button
+        Wind.find_element('screen').Update(result)    
+
+    if button == 'Historical':
+        popup(calculation_history) 
+    
+    elif button == 'C':
+        result = '0'
         Wind.find_element('screen').Update(result)
+
+    elif button == '<<':
+        result = result[:-3]
+        Wind.find_element('screen').Update(result) 
+
+    elif button == '=':
+        calculation_history.append(result)
+        calculation_system = eval(result[:-1])
+        calculation_system = str(int(float(calculation_system)))
+        calculation_history.append(calculation_system)
+        Wind.find_element('screen').Update(calculation_system)
+        result = calculation_system
