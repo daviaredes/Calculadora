@@ -8,7 +8,7 @@ layout = [
     [
         [Menu(menu_def)],
         [Txt('' * 10)],
-        [Text('0', key='screen', font='Helvetica, 20', size=(15, 2))],
+        [Text('0', key='screen', font='Helvetica, 20', size=(20, 3))],
     ],
     [
         ReadFormButton('C'),
@@ -60,6 +60,7 @@ while True:
     elif button == 'C':
         result = '0'
         Wind.find_element('screen').Update(result)
+        result = ''
 
     elif button == '<<':
         result = result[:-3]
@@ -68,7 +69,7 @@ while True:
     elif button == '=':
         calculation_history.append(result)
         calculation_system = eval(result[:-1])
-        calculation_system = str(int(float(calculation_system)))
+        calculation_system = str(calculation_system)
         calculation_history.append(calculation_system)
         Wind.find_element('screen').Update(calculation_system)
         result = calculation_system
