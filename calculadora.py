@@ -42,6 +42,7 @@ layout = [
 Wind = FlexForm('Calculator', default_button_element_size=(9, 2), auto_size_buttons=False, layout=layout)
 
 calculation_history = []
+
 result = ''
 
 while True:
@@ -55,8 +56,9 @@ while True:
         Wind.find_element('screen').Update(result)    
 
     if button == 'Historical':
-        popup(calculation_history) 
-    
+        for lista in calculation_history:
+            print(lista)
+        
     elif button == 'C':
         result = '0'
         Wind.find_element('screen').Update(result)
