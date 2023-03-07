@@ -2,13 +2,10 @@ from PySimpleGUI import *
 
 theme('DarkGrey14')
 
-menu_def = [['Menu', 'Historical']]
-
 layout = [
     [
-        [Menu(menu_def)],
         [Txt('' * 10)],
-        [Text('0', key='screen', font='Helvetica, 20', size=(20, 3))],
+        [Text('0', key='screen', font='Helvetica, 20', size=(20, 3)), Text('', k='screen_history', font='Helvetica, 20', size=(20, 3))],
     ],
     [
         ReadFormButton('C'),
@@ -37,12 +34,13 @@ layout = [
         ReadFormButton('0'),
         ReadFormButton('.'),
         ReadFormButton('=')
-    ]
-],
+    ],
+
+]
 Wind = FlexForm('Calculator', default_button_element_size=(9, 2), auto_size_buttons=False, layout=layout)
 
-calculation_history = []
 
+calculation_history = []
 result = ''
 
 while True:
@@ -55,11 +53,7 @@ while True:
         result += button
         Wind.find_element('screen').Update(result)    
 
-    if button == 'Historical':
-        for lista in calculation_history:
-            print(lista)
-        
-    elif button == 'C':
+    if button == 'C':
         result = '0'
         Wind.find_element('screen').Update(result)
         result = ''
@@ -75,3 +69,7 @@ while True:
         calculation_history.append(calculation_system)
         Wind.find_element('screen').Update(calculation_system)
         result = calculation_system
+
+    if calculation_history != '':
+        for lista in calculation_history:
+            Wind.find_element('screen_history').update(calculation_history)
