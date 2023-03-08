@@ -4,8 +4,9 @@ theme('DarkGrey14')
 
 layout = [
     [
+
         [Txt('' * 10)],
-        [Text('0', key='screen', font='Helvetica, 20', size=(20, 3)), Text('', k='screen_history', font='Helvetica, 20', size=(20, 3))],
+        [Text('0', key='screen', font='Helvetica, 20', size=(20, 3)), Text('', k='screen_history', font='Helvetica, 20')],
     ],
     [
         ReadFormButton('C'),
@@ -66,10 +67,9 @@ while True:
         calculation_history.append(result)
         calculation_system = eval(result[:-1])
         calculation_system = str(calculation_system)
-        calculation_history.append(calculation_system)
         Wind.find_element('screen').Update(calculation_system)
         result = calculation_system
 
     if calculation_history != '':
         for lista in calculation_history:
-            Wind.find_element('screen_history').update(calculation_history)
+            Wind.find_element('screen_history').update(f'{lista}\n{calculation_system}')
